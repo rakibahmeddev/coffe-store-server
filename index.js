@@ -28,11 +28,13 @@ async function run() {
     await client.connect();
 
     // db info
-    // const CoffeDB = client.db('CoffeDB').collection('Coffes')
+    const coffeDB = client.db('CoffeDB').collection('Coffes');
 
     app.post('/addcoffe', async (req, res) => {
       const newCoffe = req.body;
       console.log(newCoffe);
+      const result = await coffeDB.insertOne(newCoffe);
+      res.send(result);
     });
 
     // Send a ping to confirm a successful connection
