@@ -30,6 +30,14 @@ async function run() {
     // db info
     const coffeDB = client.db('CoffeDB').collection('Coffes');
 
+    // get coffe
+    app.get('/coffe', async (req, res) => {
+      const query = coffeDB.find();
+      const result = await query.toArray();
+      res.send(result);
+    });
+
+    // add coffe
     app.post('/addcoffe', async (req, res) => {
       const newCoffe = req.body;
       console.log(newCoffe);
