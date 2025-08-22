@@ -37,16 +37,13 @@ async function run() {
       res.send(result);
     });
 
-
-    // get a single coffe 
-    app.get('/coffe/:id', async(req, res)=>{
+    // get a single coffe
+    app.get('/coffe/:id', async (req, res) => {
       const id = req.params.id;
-      const query = {_id: new ObjectId(id)}
-      const result = await coffeDB.findOne(query)
-      res.send(result)
-      
-    })
-
+      const query = { _id: new ObjectId(id) };
+      const result = await coffeDB.findOne(query);
+      res.send(result);
+    });
 
     // add coffe
     app.post('/addcoffe', async (req, res) => {
@@ -54,6 +51,12 @@ async function run() {
       console.log(newCoffe);
       const result = await coffeDB.insertOne(newCoffe);
       res.send(result);
+    });
+
+    // update a single coffe
+    app.put('/coffe/:id', async (req, res) => {
+      const id = req.params.id;
+      console.log('id', id);
     });
 
     // Send a ping to confirm a successful connection
