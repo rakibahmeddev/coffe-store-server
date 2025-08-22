@@ -56,7 +56,23 @@ async function run() {
     // update a single coffe
     app.put('/coffe/:id', async (req, res) => {
       const id = req.params.id;
-      console.log('id', id);
+      const filter = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const coffe = req.body;
+      const updateDoc = {
+        $set: {
+          name: coffe.name,
+          taste: coffe.taste,
+          supplier: coffe.supplier,
+          category: coffe.category,
+          description: coffe.description,
+          photo: coffe.photourl,
+        },
+      };
+
+      const result = await coffeDB.updateOne(filter, updateDoc, options);
+
+      res.send(result);
     });
 
     // Send a ping to confirm a successful connection
