@@ -62,6 +62,7 @@ async function run() {
       const updateDoc = {
         $set: {
           name: coffe.name,
+          quantity: coffe.quantity,
           taste: coffe.taste,
           supplier: coffe.supplier,
           category: coffe.category,
@@ -72,6 +73,14 @@ async function run() {
 
       const result = await coffeDB.updateOne(filter, updateDoc, options);
 
+      res.send(result);
+    });
+
+    // delete a single coffe
+    app.delete('/coffe/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await coffeDB.deleteOne(query);
       res.send(result);
     });
 
